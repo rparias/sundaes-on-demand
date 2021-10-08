@@ -1,6 +1,8 @@
 import React, { useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import Button from 'react-bootstrap/Button'
+import Popover from 'react-bootstrap/Popover'
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger'
 
 const SummaryForm = () => {
   const [tcChecked, setTcChecked] = useState(false)
@@ -9,7 +11,20 @@ const SummaryForm = () => {
     setTcChecked(checked)
   }
 
-  const checkboxLabel = <label>I agree to Terms and Conditions</label>
+  const popover = (
+    <Popover id="termsandconditions-popover">
+      No ice cream will actually be delivered
+    </Popover>
+  )
+
+  const checkboxLabel = (
+    <label>
+      I agree to
+      <OverlayTrigger placement="right" overlay={popover}>
+        <span style={{ color: 'blue' }}>Terms and Conditions</span>
+      </OverlayTrigger>
+    </label>
+  )
 
   return (
     <Form>

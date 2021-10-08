@@ -1,4 +1,9 @@
-import { fireEvent, render, screen } from '@testing-library/react'
+import {
+  render,
+  screen,
+  waitForElementToBeRemoved,
+} from '@testing-library/react'
+import userEvent from '@testing-library/user-event'
 import SummaryForm from '../SummaryForm'
 
 describe('Summary Form Component', () => {
@@ -29,7 +34,7 @@ describe('Summary Form Component', () => {
       const confirmButton = screen.getByRole('button', {
         name: /confirm order/i,
       })
-      fireEvent.click(checkbox)
+      userEvent.click(checkbox)
       expect(confirmButton).toBeEnabled()
     })
 
@@ -41,10 +46,29 @@ describe('Summary Form Component', () => {
       const confirmButton = screen.getByRole('button', {
         name: /confirm order/i,
       })
-      fireEvent.click(checkbox)
+      userEvent.click(checkbox)
       expect(confirmButton).toBeEnabled()
-      fireEvent.click(checkbox)
+      userEvent.click(checkbox)
       expect(confirmButton).toBeDisabled()
+    })
+
+    it('popover responds to hover', async () => {
+      render(<SummaryForm />)
+      const POPOVER_MSG = /no ice cream will actually be delivered/i
+      const termsAndConditions = screen.getByText(/terms and conditions/i)
+
+      // popover starts out hidden
+      const nullPopover = screen.queryByText(POPOVER_MSG)
+      expect(nullPopover).not.toBeInTheDocument()
+
+      // popover appears upon mouseover of checkbox label
+      userEvent.hover(termsAndConditions)
+      const popover = screen.getByText(POPOVER_MSG)
+      expect(popover).toBeInTheDocument()
+
+      // popover disappears when we mouse out
+      userEvent.unhover(termsAndConditions)
+      await waitForElementToBeRemoved(() => screen.queryByText(POPOVER_MSG))
     })
   })
 })
