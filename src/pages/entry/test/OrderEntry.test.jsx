@@ -1,8 +1,11 @@
-import { render, screen, waitFor } from '@testing-library/react'
+import {
+  render,
+  screen,
+  waitFor,
+} from '../../../test-utils/testing-library-utils'
 import OrderEntry from '../OrderEntry'
 import { rest } from 'msw'
 import { server } from '../../../mocks/server'
-import { OrderDetailsProvider } from '../../../contexts/OrderDetails'
 
 test('handles error for scoops and toppings routes', async () => {
   server.resetHandlers(
@@ -14,7 +17,7 @@ test('handles error for scoops and toppings routes', async () => {
     )
   )
 
-  render(<OrderEntry />, { wrapper: OrderDetailsProvider })
+  render(<OrderEntry />)
 
   // waitFor is used for tests where await findBy* is not enough
   await waitFor(async () => {
