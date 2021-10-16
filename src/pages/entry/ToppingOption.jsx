@@ -1,7 +1,6 @@
 import React from 'react'
 import Form from 'react-bootstrap/Form'
 import Col from 'react-bootstrap/Col'
-import Row from 'react-bootstrap/Row'
 
 const ToppingOption = ({ name, imagePath, updateItemCount }) => {
   const handleOnChange = ({ target: { checked } }) => {
