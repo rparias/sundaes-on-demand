@@ -66,7 +66,7 @@ describe('Subtotals', () => {
 })
 
 describe('Grand Total', () => {
-  test('grand total starts at $0.00', () => {
+  test('grand total updates properly if scoop is added first', async () => {
     render(<OrderEntry />)
 
     const grandTotalLabel = screen.getByRole('heading', {
@@ -74,9 +74,6 @@ describe('Grand Total', () => {
     })
 
     expect(grandTotalLabel).toHaveTextContent('0.00')
-  })
-  test('grand total updates properly if scoop is added first', async () => {
-    render(<OrderEntry />)
 
     const vanillaScoopInput = await screen.findByRole('spinbutton', {
       name: /vanilla/i,
@@ -88,10 +85,6 @@ describe('Grand Total', () => {
       name: /cherries/i,
     })
     userEvent.click(cherriesToppingCheckbox)
-
-    const grandTotalLabel = screen.getByRole('heading', {
-      name: /grand total: \$/i,
-    })
 
     expect(grandTotalLabel).toHaveTextContent('5.50')
   })
