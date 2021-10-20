@@ -22,6 +22,7 @@ const OrderSummary = () => {
 
   return (
     <>
+      <h1>Order Summary</h1>
       <h2>Scoops: {scoops}</h2>
       <ul>
         {listScoops.map((scoop) => (
