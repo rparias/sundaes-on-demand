@@ -25,14 +25,14 @@ const OrderSummary = () => {
       <h1>Order Summary</h1>
       <h2>Scoops: {scoops}</h2>
       <ul>
-        {listScoops.map((scoop) => (
-          <li>{scoop}</li>
+        {listScoops.map((scoop, index) => (
+          <li key={index}>{scoop}</li>
         ))}
       </ul>
       <h2>Toppings: {toppings}</h2>
       <ul>
-        {listToppings.map((topping) => (
-          <li>{topping}</li>
+        {listToppings.map((topping, index) => (
+          <li key={index}>{topping}</li>
         ))}
       </ul>
       <h2>Total: {grandTotal}</h2>
