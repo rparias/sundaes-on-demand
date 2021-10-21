@@ -78,5 +78,16 @@ test('order flow for happy path', async () => {
     exact: false,
   })
   expect(grandTotal).toHaveTextContent('0.00')
+
   //---------------- do we need to await anything to avoid test errors? ---------------- //
+  // wait for items to appear so that Testing Library doesn't get angry about that
+  await screen.findByRole('spinbutton', {
+    name: /chocolate/i,
+  })
+  await screen.findByRole('checkbox', {
+    name: /cherries/i,
+  })
+  await screen.findByRole('checkbox', {
+    name: /m&ms/i,
+  })
 })
