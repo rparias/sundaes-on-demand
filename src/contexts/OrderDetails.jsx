@@ -26,13 +26,14 @@ function calculateSubtotal(optionType, optionCounts) {
   return optionCount * pricePerItem[optionType]
 }
 
+const zeroCurrency = formatCurrency(0)
+
 // create a provider
 function OrderDetailsProvider(props) {
   const [optionCounts, setOptionCounts] = useState({
     scoops: new Map(),
     toppings: new Map(),
   })
-  const zeroCurrency = formatCurrency(0)
   const [totals, setTotals] = useState({
     scoops: zeroCurrency,
     toppings: zeroCurrency,
@@ -60,9 +61,22 @@ function OrderDetailsProvider(props) {
 
       setOptionCounts(newOptionCounts)
     }
+
+    function resetValues() {
+      setOptionCounts({
+        scoops: new Map(),
+        toppings: new Map(),
+      })
+      setTotals({
+        scoops: zeroCurrency,
+        toppings: zeroCurrency,
+        grandTotal: zeroCurrency,
+      })
+    }
+
     // getter: object containing option counts for scoops and toppings, subtotals and totals
     // setter: updateOptionCount
-    return [{ ...optionCounts, totals }, updateItemCount]
+    return [{ ...optionCounts, totals }, updateItemCount, resetValues]
   }, [optionCounts, totals])
 
   return <OrderDetails.Provider value={value} {...props} />
