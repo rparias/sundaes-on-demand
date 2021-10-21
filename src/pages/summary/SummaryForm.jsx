@@ -26,12 +26,13 @@ const SummaryForm = ({ setOrderPhase }) => {
     </label>
   )
 
-  const handleOnClick = () => {
+  const handleOnSubmit = (event) => {
+    event.preventDefault()
     setOrderPhase('complete')
   }
 
   return (
-    <Form>
+    <Form onSubmit={handleOnSubmit}>
       <Form.Group controlId="terms-and-conditions">
         <Form.Check
           type="checkbox"
@@ -40,12 +41,7 @@ const SummaryForm = ({ setOrderPhase }) => {
           label={checkboxLabel}
         />
       </Form.Group>
-      <Button
-        variant="primary"
-        type="submit"
-        disabled={!tcChecked}
-        onClick={handleOnClick}
-      >
+      <Button variant="primary" type="submit" disabled={!tcChecked}>
         Confirm order
       </Button>
     </Form>
