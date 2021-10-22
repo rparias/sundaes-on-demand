@@ -143,3 +143,22 @@ describe('Grand Total', () => {
     expect(grandTotalLabel).toHaveTextContent('3.50')
   })
 })
+
+test('button should be disabled if no scoops selected', async () => {
+  render(<OrderEntry />)
+
+  const button = screen.getByRole('button', { name: /continue order/i })
+  expect(button).toBeDisabled()
+
+  const scoopInput = await screen.findByRole('spinbutton', {
+    name: /chocolate/i,
+  })
+  userEvent.clear(scoopInput)
+  userEvent.type(scoopInput, '1')
+
+  expect(button).toBeEnabled()
+
+  userEvent.clear(scoopInput)
+  userEvent.type(scoopInput, '0')
+  expect(button).toBeDisabled()
+})

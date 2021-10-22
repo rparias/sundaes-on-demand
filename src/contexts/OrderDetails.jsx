@@ -57,8 +57,9 @@ function OrderDetailsProvider(props) {
 
       // update option count for this item with the new value on the Map
       const optionCountsMap = optionCounts[optionType]
-      optionCountsMap.set(itemName, parseInt(newItemCount))
-
+      newItemCount > 0
+        ? optionCountsMap.set(itemName, parseInt(newItemCount))
+        : optionCountsMap.delete(itemName)
       setOptionCounts(newOptionCounts)
     }
 
