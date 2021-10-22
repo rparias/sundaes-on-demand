@@ -2,7 +2,7 @@ import { useOrderDetails } from '../../contexts/OrderDetails'
 import SummaryForm from './SummaryForm'
 
 const OrderSummary = ({ setOrderPhase }) => {
-  const [orderDetails, updateItemCount] = useOrderDetails()
+  const [orderDetails] = useOrderDetails()
   const {
     totals: { scoops, toppings, grandTotal },
     scoops: scoopsMap,

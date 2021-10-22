@@ -4,7 +4,7 @@ import Button from 'react-bootstrap/Button'
 import { useOrderDetails } from '../../contexts/OrderDetails'
 
 const OrderEntry = ({ setOrderPhase }) => {
-  const [orderDetails, updateItemCount] = useOrderDetails()
+  const [orderDetails] = useOrderDetails()
 
   const handleOnClick = () => {
     setOrderPhase('review')

@@ -4,7 +4,7 @@ import { useOrderDetails } from '../../contexts/OrderDetails'
 import Button from 'react-bootstrap/Button'
 
 const OrderConfirmation = ({ setOrderPhase }) => {
-  const [orderDetails, updateItemCount, resetValues] = useOrderDetails()
+  const [orderDetails, , resetValues] = useOrderDetails()
   const [orderNumber, setOrderNumber] = useState(null)
 
   const handleOnClick = () => {
