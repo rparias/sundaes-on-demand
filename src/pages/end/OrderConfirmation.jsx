@@ -19,16 +19,20 @@ const OrderConfirmation = ({ setOrderPhase }) => {
       .catch((error) => console.error(error))
   }, [orderDetails])
 
-  return (
-    <>
-      <h2>Thank you!</h2>
-      <h3>Your order number is {orderNumber}</h3>
-      <p>Thanks for your purchase</p>
-      <Button variant="primary" onClick={handleOnClick}>
-        Create new order
-      </Button>
-    </>
-  )
+  if (orderNumber) {
+    return (
+      <>
+        <h2>Thank you!</h2>
+        <h3>Your order number is {orderNumber}</h3>
+        <p>Thanks for your purchase</p>
+        <Button variant="primary" onClick={handleOnClick}>
+          Create new order
+        </Button>
+      </>
+    )
+  } else {
+    return <h2>Loading</h2>
+  }
 }
 
 export default OrderConfirmation
