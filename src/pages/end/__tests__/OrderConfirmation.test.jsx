@@ -3,6 +3,8 @@ import {
   screen,
   waitFor,
 } from '../../../test-utils/testing-library-utils'
+import { rest } from 'msw'
+import { server } from '../../../mocks/server'
 import OrderConfirmation from '../OrderConfirmation'
 
 test('Initial values should be displayed on the screen', async () => {
@@ -51,4 +53,16 @@ test('Loading text should appear if the confirmation number is null', async () =
 
   const loadingTextNull = screen.queryByRole('heading', { name: /loading/i })
   expect(loadingTextNull).not.toBeInTheDocument()
+})
+
+test('A server error message should appear when it happens', async () => {
+  server.resetHandlers(
+    rest.post('http://localhost:3030/order', (req, res, ctx) =>
+      res(ctx.status(500))
+    )
+  )
+  render(<OrderConfirmation />)
+
+  const alert = await screen.findByRole('alert')
+  expect(alert).toBeInTheDocument()
 })
